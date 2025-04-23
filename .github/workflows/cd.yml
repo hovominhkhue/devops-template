@@ -29,10 +29,6 @@ jobs:
       - name: Simulate Deployment to Staging
         run: echo "Simulated deployment of node and python services to STAGING"
 
-      # 👉 Pour un vrai cluster, remplace la ligne ci-dessus par :
-      # - name: Deploy to Staging
-      #   run: kubectl apply -f k8s/staging-deployment.yaml
-
   deploy-production:
     name: Deploy to Production
     runs-on: ubuntu-latest
