@@ -10,7 +10,7 @@ on:
 
 jobs:
   test:
-    name: Run Tests
+    name: Run Tests (Node App)
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Code
@@ -22,13 +22,15 @@ jobs:
           node-version: '16'
 
       - name: Install Dependencies
+        working-directory: docker/node
         run: npm install
 
       - name: Run Tests
+        working-directory: docker/node
         run: npm test
 
   lint:
-    name: Lint Code
+    name: Lint Code (Node App)
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Code
@@ -40,15 +42,16 @@ jobs:
           node-version: '16'
 
       - name: Install Dependencies
+        working-directory: docker/node
         run: npm install
 
       - name: Run Linter
+        working-directory: docker/node
         run: npm run lint
 
   build:
     name: Build and Push Docker Images
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout Code
         uses: actions/checkout@v3
