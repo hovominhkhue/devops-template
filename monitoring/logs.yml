@@ -1,0 +1,24 @@
+scrape_configs:
+  - job_name: 'node-service-logs'
+    static_configs:
+      - targets: ['node-service:3000']
+        labels:
+          job: 'node-service-logs'
+
+  - job_name: 'python-service-logs'
+    static_configs:
+      - targets: ['python-service:8000']
+        labels:
+          job: 'python-service-logs'
+
+  - job_name: 'kubernetes-pod-logs'
+    kubernetes_sd_configs:
+      - role: pod
+    relabel_configs:
+      - source_labels: [__meta_kubernetes_pod_annotation_logging_enabled]
+        action: keep
+        regex: true
+      - source_labels: [__meta_kubernetes_pod_name]
+        target_label: pod
+      - source_labels: [__meta_kubernetes_namespace]
+        target_label: namespace

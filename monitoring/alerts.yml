@@ -1,0 +1,29 @@
+groups:
+  - name: devops-alerts
+    rules:
+      - alert: HighCPUUsage
+        expr: avg(node_cpu_seconds_total{mode="idle"}) < 0.2
+        for: 2m
+        labels:
+          severity: warning
+        annotations:
+          summary: "High CPU usage detected"
+          description: "CPU usage is above 80% for the last 2 minutes on instance {{ $labels.instance }}."
+
+      - alert: HighMemoryUsage
+        expr: sum(container_memory_usage_bytes) / sum(machine_memory_bytes) > 0.8
+        for: 2m
+        labels:
+          severity: warning
+        annotations:
+          summary: "High Memory usage detected"
+          description: "Memory usage is above 80% for the last 2 minutes."
+
+      - alert: ServiceDown
+        expr: up == 0
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Service is down"
+          description: "Service {{ $labels.job }} is not reachable for the last 1 minute."

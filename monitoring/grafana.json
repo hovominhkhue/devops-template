@@ -1,0 +1,79 @@
+{
+  "dashboard": {
+    "id": null,
+    "title": "DevOps Monitoring Dashboard",
+    "timezone": "browser",
+    "panels": [
+      {
+        "type": "graph",
+        "title": "Node Service Response Time",
+        "targets": [
+          {
+            "expr": "rate(http_request_duration_seconds_sum{job='node-service'}[1m])",
+            "legendFormat": "Node Service",
+            "refId": "A"
+          }
+        ],
+        "gridPos": {
+          "x": 0,
+          "y": 0,
+          "w": 12,
+          "h": 8
+        }
+      },
+      {
+        "type": "graph",
+        "title": "Python Service Response Time",
+        "targets": [
+          {
+            "expr": "rate(http_request_duration_seconds_sum{job='python-service'}[1m])",
+            "legendFormat": "Python Service",
+            "refId": "B"
+          }
+        ],
+        "gridPos": {
+          "x": 12,
+          "y": 0,
+          "w": 12,
+          "h": 8
+        }
+      },
+      {
+        "type": "stat",
+        "title": "Kubernetes Node CPU Usage",
+        "targets": [
+          {
+            "expr": "avg(node_cpu_seconds_total{mode='idle'}) by (instance)",
+            "legendFormat": "{{instance}}",
+            "refId": "C"
+          }
+        ],
+        "gridPos": {
+          "x": 0,
+          "y": 8,
+          "w": 12,
+          "h": 8
+        }
+      },
+      {
+        "type": "stat",
+        "title": "Kubernetes Pod Memory Usage",
+        "targets": [
+          {
+            "expr": "sum(container_memory_usage_bytes{job='kubernetes-pods'}) by (pod)",
+            "legendFormat": "{{pod}}",
+            "refId": "D"
+          }
+        ],
+        "gridPos": {
+          "x": 12,
+          "y": 8,
+          "w": 12,
+          "h": 8
+        }
+      }
+    ],
+    "schemaVersion": 27,
+    "version": 1
+  }
+}

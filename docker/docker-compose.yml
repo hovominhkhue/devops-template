@@ -1,0 +1,26 @@
+version: '3.8'
+
+services:
+  node-service:
+    build:
+      context: ./node
+      dockerfile: Dockerfile.node
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./node:/usr/src/app
+    environment:
+      - NODE_ENV=development
+    command: npm start
+
+  python-service:
+    build:
+      context: ./python
+      dockerfile: Dockerfile.python
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./python:/app
+    environment:
+      - FLASK_ENV=development
+    command: python app.py
