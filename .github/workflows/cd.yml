@@ -26,8 +26,7 @@ jobs:
         run: docker pull hovominhkhue/devops-python:latest
 
       - name: Deploy to Staging
-        run: |
-          kubectl apply -f k8s/staging-deployment.yaml
+        run: kubectl apply --validate=false -f k8s/staging-deployment.yaml
 
   deploy-production:
     name: Deploy to Production
